@@ -1,0 +1,48 @@
+{
+    "agent": {
+        "run_as_user": "root"
+    },
+    "logs": {
+        "logs_collected": {
+            "files": {
+                "collect_list": [
+                    {
+                        "file_path": "/home/ec2-user/logs/stream.log",
+                        "log_group_name": "stream-tweet",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/home/ec2-user/logs/sample.log",
+                        "log_group_name": "sample-tweet",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/home/ec2-user/logs/timeline.log",
+                        "log_group_name": "timeline-tweet",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/home/ec2-user/logs/stream-stderr.log",
+                        "log_group_name": "stream-stderr",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/home/ec2-user/logs/sample-stderr.log",
+                        "log_group_name": "sample-stderr",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/home/ec2-user/logs/timeline-stderr.log",
+                        "log_group_name": "timeline-stderr",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/tmp/supervisord.log",
+                        "log_group_name": "supervisord.log",
+                        "log_stream_name": "{instance_id}"
+                    }
+                ]
+            }
+        }
+    }
+}

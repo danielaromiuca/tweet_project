@@ -1,0 +1,7 @@
+"""Set path constants."""
+BUCKET = "twitter-project-daromi"
+PREFIX_RAW_STREAM = "data/raw/stream/"
+PREFIX_RAW_SAMPLE = "data/raw/sample/"
+PREFIX_RAW_TIMELINE = "data/raw/tl/"
+PATH_TAGS_ECONOMIA = "/home/ec2-user/tags_economia.txt"
+PATH_USER_LIST = "/home/ec2-user/user_list.txt"
