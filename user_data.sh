@@ -24,4 +24,5 @@ export API_CONSUMER_KEY=$(aws ssm get-parameter --name "api_consumer_key" --outp
 
 poetry run supervisord -c /home/ec2-user/tweet_project/supervisord.conf
 sleep 5
-/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/home/ec2-user/tweet_project/cwagentconfig.json -s 
+
+opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/home/ec2-user/tweet_project/cwagentconfig.json -s
