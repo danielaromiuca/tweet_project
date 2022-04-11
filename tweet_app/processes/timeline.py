@@ -4,8 +4,8 @@ import random
 import time as tm
 
 import tweepy
-from constants import BUCKET, PATH_USER_LIST, PREFIX_RAW_TIMELINE
-from utils import (
+from tweet_app.constants import BUCKET, PATH_USER_LIST, PREFIX_RAW_TIMELINE
+from tweet_app.utils import (
     API_ACCESS_TOKEN,
     API_ACCESS_TOKEN_SECRET,
     API_CONSUMER_KEY,
@@ -53,31 +53,33 @@ if __name__ == "__main__":
 
                 for status in page:
 
+                    status_dict = status._json
+
                     tweet = []  # List to add tweet fields
 
-                    tweet.append(str(status.get("id")))
-                    tweet.append(str(status.get("full_text")))
-                    tweet.append(str(status.get("created_at")))
+                    tweet.append(str(status_dict.get("id")))
+                    tweet.append(str(status_dict.get("full_text")))
+                    tweet.append(str(status_dict.get("created_at")))
                     try:
-                        tweet.append(status.get("user")["screen_name"])
-                    except AttributeError:
+                        tweet.append(status_dict.get("user")["screen_name"])
+                    except TypeError:
                         tweet.append(None)
                     try:
-                        tweet.append(str(status.get("user")["location"]))
-                    except AttributeError:
+                        tweet.append(str(status_dict.get("user")["location"]))
+                    except TypeError:
                         tweet.append(None)
-                    tweet.append(str(status.get("coordinates")))
-                    tweet.append(str(status.get("retweet_count")))
-                    tweet.append(str(status.get("retweeted")))
-                    tweet.append(str(status.get("source")))
-                    tweet.append(str(status.get("favorite_count")))
-                    tweet.append(str(status.get("favorited")))
-                    tweet.append(str(status.get("in_reply_to_status_id_str")))
+                    tweet.append(str(status_dict.get("coordinates")))
+                    tweet.append(str(status_dict.get("retweet_count")))
+                    tweet.append(str(status_dict.get("retweeted")))
+                    tweet.append(str(status_dict.get("source")))
+                    tweet.append(str(status_dict.get("favorite_count")))
+                    tweet.append(str(status_dict.get("favorited")))
+                    tweet.append(str(status_dict.get("in_reply_to_status_id_str")))
 
                     tweets.append(tweet)
 
-                    if len(tweets) > 20000:
-
+                    if len(tweets) > 10000:
+                        logger.info("10000 mas!")
                         tweets_to_s3(logger, BUCKET, PREFIX_RAW_TIMELINE, tweets)
 
                         tweets = []

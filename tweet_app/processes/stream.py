@@ -3,10 +3,10 @@ import logging
 import time
 
 import tweepy
-from constants import BUCKET, PATH_TAGS_ECONOMIA, PREFIX_RAW_STREAM
+from tweet_app.constants import BUCKET, PATH_TAGS_ECONOMIA, PREFIX_RAW_STREAM
 from tweepy import Stream
 from tweepy.streaming import StreamListener
-from utils import (
+from tweet_app.utils import (
     API_ACCESS_TOKEN,
     API_ACCESS_TOKEN_SECRET,
     API_CONSUMER_KEY,
@@ -20,33 +20,33 @@ from utils import (
 class StdOutListener(StreamListener):
     def on_data(self, data):
 
-        status = json.loads(data)
+        status_dict = json.loads(data)
 
         tweet = []  # List to add tweet fields
 
-        tweet.append(str(status.get("id")))
-        tweet.append(get_full_text(status))
-        tweet.append(str(status.get("created_at")))
+        tweet.append(str(status_dict.get("id")))
+        tweet.append(get_full_text(status_dict))
+        tweet.append(str(status_dict.get("created_at")))
         try:
-            tweet.append(status.get("user")["screen_name"])
-        except AttributeError:
+            tweet.append(status_dict.get("user")["screen_name"])
+        except TypeError:
             tweet.append(None)
         try:
-            tweet.append(str(status.get("user")["location"]))
-        except AttributeError:
+            tweet.append(str(status_dict.get("user")["location"]))
+        except TypeError:
             tweet.append(None)
-        tweet.append(str(status.get("coordinates")))
-        tweet.append(str(status.get("retweet_count")))
-        tweet.append(str(status.get("retweeted")))
-        tweet.append(str(status.get("source")))
-        tweet.append(str(status.get("favorite_count")))
-        tweet.append(str(status.get("favorited")))
-        tweet.append(str(status.get("in_reply_to_status_id_str")))
+        tweet.append(str(status_dict.get("coordinates")))
+        tweet.append(str(status_dict.get("retweet_count")))
+        tweet.append(str(status_dict.get("retweeted")))
+        tweet.append(str(status_dict.get("source")))
+        tweet.append(str(status_dict.get("favorite_count")))
+        tweet.append(str(status_dict.get("favorited")))
+        tweet.append(str(status_dict.get("in_reply_to_status_id_str")))
 
         self.tweets.append(tweet)
 
-        if len(self.tweets) > 20000:
-
+        if len(self.tweets) > 10000:
+            logger.info("10000 mas!")
             tweets_to_s3(logger, BUCKET, PREFIX_RAW_STREAM, self.tweets)
 
             self.tweets = []
