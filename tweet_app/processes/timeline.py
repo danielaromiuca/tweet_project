@@ -57,6 +57,7 @@ if __name__ == "__main__":
 
                     tweet = []  # List to add tweet fields
 
+                    tweet.append("tl")
                     tweet.append(str(status_dict.get("id")))
                     tweet.append(str(status_dict.get("full_text")))
                     tweet.append(str(status_dict.get("created_at")))
