@@ -65,6 +65,7 @@ def tweets_to_s3(logger, bucket, prefix, tweets):
     key = f"s3://{bucket}/{prefix}" + str(datetime.now()) + ".parquet"
     tweets_df = pd.DataFrame(tweets)
     tweets_df.columns = [
+        "process",
         "tweet_id",
         "text",
         "created_at",
