@@ -4,7 +4,7 @@ yum install -y ruby
 yum install git -y
 yum install amazon-cloudwatch-agent -y
 amazon-linux-extras enable python3.8 -y
-yum install python3.8
+yum install python3.8 -y
 curl -O https://bootstrap.pypa.io/get-pip.py
 python3 get-pip.py --user
 pip3 install poetry
