@@ -17,6 +17,9 @@ from tweet_app.utils import (
 
 
 class StdOutListener(StreamListener):
+    def __init__(self):
+        self.tweets = []
+        
     def on_data(self, data):
 
         status_dict = json.loads(data)
@@ -69,8 +72,6 @@ if __name__ == "__main__":
 
     l = StdOutListener()
     stream = Stream(auth, l, tweet_mode="extended")
-
-    l.tweets = []  # New attribute to temp. store tweets
 
     try:
         logger.info("Launching sampling application")

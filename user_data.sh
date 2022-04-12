@@ -5,18 +5,19 @@ yum install git -y
 yum install amazon-cloudwatch-agent -y
 amazon-linux-extras enable python3.8 -y
 yum install python3.8 -y
-curl -O https://bootstrap.pypa.io/get-pip.py
-python3 get-pip.py --user
 pip3 install poetry
 
 
 cd /home/ec2-user
+mkdir logs
+chmod 777 logs
+
 git clone https://github.com/danielaromiuca/tweet_project.git
 chmod -R 777 tweet_project
 cd tweet_project
 poetry install
 
-configure set region us-east-1
+aws configure set region us-east-1
 export API_ACCESS_TOKEN=$(aws ssm get-parameter --name "api_access_token" --output text --query Parameter.Value)
 export API_ACCESS_TOKEN_SECRET=$(aws ssm get-parameter --name "api_access_token_secret" --output text --query Parameter.Value)
 export API_CONSUMER_SECRET=$(aws ssm get-parameter --name "api_consumer_secret" --output text --query Parameter.Value)
