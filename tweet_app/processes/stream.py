@@ -27,6 +27,7 @@ class StdOutListener(StreamListener):
 
         tweet = []  # List to add tweet fields
 
+        tweet.append("stream")
         tweet.append(str(status_dict.get("id")))
         tweet.append(get_full_text(status_dict))
         tweet.append(str(status_dict.get("created_at")))
